@@ -1,0 +1,336 @@
+﻿
+@model personal_web.Models.Blog
+
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_webLayout.cshtml";
+}
+
+<link href="~/Content/bootstrap-grid.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+
+
+<style>
+
+    * {
+        box-sizing: border-box;
+        line-height: 1.6;
+    }
+
+    body {
+        background-color: rgb(238,238,238);
+    }
+
+    hr{
+        background-color: black;
+    }
+
+    .blog_container{
+        width:73%;
+        margin-inline:auto;
+        background-color: #fff;
+        padding: 2.5rem;
+        margin-top: 6rem;
+        margin-bottom:1.5rem;
+       border-radius:7px;
+    }
+
+
+
+    .blog_bg {
+        margin-top: 4rem;
+    }
+
+    .sub-heading{
+        margin:1.8rem 0;
+    }
+
+        .sub-heading > div{
+            padding:0.5rem;
+        }
+
+        .sub-heading > div > label{
+            font-weight:500;
+            font-size: 1em;
+        }
+
+            .sub-heading > div > label > a{
+                text-decoration:none;
+                color:black;
+            }
+
+                .sub-heading > div > label > a:hover{
+                    color:red;
+                    transition:0.3s ease;
+                }
+
+                @@media(min-width: 430px) {
+                    .blog-heading h1 {
+            font-size: calc(30px + 18 * ((100vw - 430px) / 770));
+        }
+    }
+
+    @@media(max-width: 765px){
+        .blog_container {
+            width: 95%;
+        }
+    }
+
+
+    .blog-heading h1 {
+        font-size: 30px;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        font-weight: 600;
+        margin:0 1em;
+    }
+
+    .blog_img {
+        display: block;
+    }
+
+        .blog_img img {
+            width: 100%;
+            margin-inline: auto;
+        }
+
+    content-section img {
+        display: block;
+        width: 100%;
+        margin-inline: auto;
+    }
+
+    .content-p {
+        margin-bottom: 1em;
+    }
+
+    .content-section{
+        margin:1.2em 0;
+    }
+    /* Share Buttons */
+    .share-btn-container {
+        width: 100%;
+        background: #fff;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        top:50%;
+        right:0;
+        @*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);*@
+    }
+
+        .share-btn-container a i {
+            font-size: 1.8rem;
+        }
+
+        .share-btn-container a {
+            margin: 12px 5px;
+            transition: 500ms;
+            padding:0.5rem;
+        }
+
+            .share-btn-container a:hover {
+                transform: scale(1.2);
+            }
+
+        .share-btn-container .fa-facebook {
+            color: #3b5998;
+        }
+
+        .share-btn-container .fa-twitter {
+            color: #1da1f2;
+        }
+
+        .share-btn-container .fa-linkedin {
+            color: #0077b5;
+        }
+
+        .share-btn-container .fa-pinterest {
+            color: #bd081c;
+        }
+
+        .share-btn-container .fa-whatsapp {
+            color: #25d366;
+        }
+
+    @@media (max-width: 550px) {
+        .share-btn-container {
+            width: 100%;
+            background: #fff;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            @*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            *@
+        }
+
+            .share-btn-container a i {
+                font-size: 1rem;
+            }
+    }
+</style>
+
+<!--===== HEADER =====-->
+<header class="l-header">
+    <nav class="nav bd-grid">
+        <div>
+            <a href="#" class="nav__logo">
+                KG
+            </a>
+        </div>
+
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="@Url.Action("Index","Home")" class="nav__link ">Home</a></li>
+                <li class="nav__item"><a href="@Url.Action("Index","Home")" class="nav__link">About</a></li>
+                <li class="nav__item"><a href="@Url.Action("Index","Home")" class="nav__link">Skills</a></li>
+                <li class="nav__item"><a href="@Url.Action("Index","Home")" class="nav__link active">Work</a></li>
+                <li class="nav__item"><a href="@Url.Action("Index","Home")" class="nav__link">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="nav__toggle" id="nav-toggle">
+            <i class='bx bx-menu'></i>
+        </div>
+    </nav>
+</header>
+
+<div class="bg-style">
+
+
+
+    <section class="blog_bg">
+        <div class="blog_container">
+            <div class="text-center blog-heading">
+                <h1>@Model.Title</h1>
+                <div class="sub-heading">
+                    <hr />
+                    <div>
+                        <label> @Model.Date &nbsp; </label>
+                        <label> &nbsp;  &nbsp; <a href="@Url.Action("Index","Home")">Khageshor Giri</a></label>
+                        <label> &nbsp;  &nbsp; <a href="#commentSection">Comments</a></label>
+                    </div>
+
+                    <hr />
+                </div>
+
+            </div>
+            
+        <div class="share-btn-container">
+                <a href="#" class="facebook-btn">
+                    <i class="fab fa-facebook"></i>
+                </a>
+
+                <a href="#" class="twitter-btn">
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+                <a href="#" class="pinterest-btn">
+                    <i class="fab fa-pinterest"></i>
+                </a>
+
+                <a href="#" class="linkedin-btn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+
+                <a href="#" class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+        <div class="content-p">
+            <label><i>@Model.ShortDescription</i></label>
+        </div>
+          
+            <div class="blog_img">
+                <img src="@Model.Image" class="blog_share_img">
+            </div>
+
+            <div class="content-section">
+                @Html.Raw(Model.Description)
+            </div>
+
+            <div id="commentSection">
+                <h3>This is comment section.</h3>
+            </div>
+        </div>
+        
+    </section>
+
+
+
+    <!--===== FOOTER =====-->
+    <footer class="footer-section ">
+        <div class="container">
+            <h2 class="text-center text-title">@ViewBag.Name</h2>
+            <div class="footer__social">
+                <a href="#" class="footer__icon"><i class='bx bxl-facebook'></i></a>
+                <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
+                <a href="#" class="footer__icon"><i class='bx bxl-twitter'></i></a>
+            </div>
+            <p class="footer__copy">&#169; @ViewBag.Name. All rigths reserved</p>
+        </div>
+
+    </footer>
+
+</div>
+<script>
+
+    /*
+    Social Share Links:
+    WhatsApp:
+    https://wa.me/?text=[post-title] [post-url]
+    Facebook:
+    https://www.facebook.com/sharer.php?u=[post-url]
+    Twitter:
+    https://twitter.com/share?url=[post-url]&text=[post-title]
+    Pinterest:
+    https://pinterest.com/pin/create/bookmarklet/?media=[post-img]&url=[post-url]&is_video=[is_video]&description=[post-title]
+    LinkedIn:
+    https://www.linkedin.com/shareArticle?url=[post-url]&title=[post-title]
+*/
+
+    const facebookBtn = document.querySelector(".facebook-btn");
+    const twitterBtn = document.querySelector(".twitter-btn");
+    const pinterestBtn = document.querySelector(".pinterest-btn");
+    const linkedinBtn = document.querySelector(".linkedin-btn");
+    const whatsappBtn = document.querySelector(".whatsapp-btn");
+
+    function init() {
+        const pinterestImg = document.querySelector(".blog_share_img");
+
+        let postUrl = encodeURI(document.location.href);
+        let postTitle = encodeURI("Hi everyone, please check this out: ");
+        let postImg = encodeURI(pinterestImg.src);
+
+        facebookBtn.setAttribute(
+            "href",
+            `https://www.facebook.com/sharer.php?u=${postUrl}`
+        );
+
+        twitterBtn.setAttribute(
+            "href",
+            `https://twitter.com/share?url=${postUrl}&text=${postTitle}`
+        );
+
+        pinterestBtn.setAttribute(
+            "href",
+            `https://pinterest.com/pin/create/bookmarklet/?media=${postImg}&url=${postUrl}&description=${postTitle}`
+        );
+
+        linkedinBtn.setAttribute(
+            "href",
+            `https://www.linkedin.com/shareArticle?url=${postUrl}&title=${postTitle}`
+        );
+
+        whatsappBtn.setAttribute(
+            "href",
+            `https://wa.me/?text=${postTitle} ${postUrl}`
+        );
+    }
+
+    init();
+</script>

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+
+
+@{
+    var erroMgs = ViewBag.Msg;
+}
+
+@if (!String.IsNullOrEmpty(erroMgs))
+{
+    <div style="background-color:lightpink;">
+        <p class="p-3">@erroMgs ! Please Try Again.</p>
+    </div>
+}
+
+
+<div class="row" style="margin-top:5%;">
+    <div class=" col-md-5 card shadow-lg">
+        <div class="card-body p-4">
+            @using (Html.BeginForm("Login","Account"))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <label>UserName</label>
+                    <input name="username" placeholder="Username" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input name="password" placeholder="Password" type="password" class="form-control" />
+                </div>
+                <hr style="background-color:hotpink;" />
+                <div class="mt-3">
+                    <input type="submit" value="Login" class="btn btn-info px-4" />
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

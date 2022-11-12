@@ -1,0 +1,36 @@
+﻿@model IEnumerable<personal_web.Models.History>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<div class="table-responsive">
+    <table class="table table-striped" id="historyIndexTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+      
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.HistoryID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.HistoryID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+       
+
+    </table>
+
+</div>

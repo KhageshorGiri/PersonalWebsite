@@ -1,0 +1,31 @@
+﻿
+@model IEnumerable<personal_web.Models.Blog>
+@using personal_web.Helpers;
+
+@{
+    ViewBag.Title = "Blogs";
+    Layout = null;
+}
+
+
+
+@if (Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        var title = Html.ClearnUrl(item.Title);
+        var category = Html.ClearnUrl(item.BlogCategory.Category);
+
+        <a href="@Url.Action("Blog","Home", new {id=item.BlogID, title=title, category=category})" class="work__img">
+            <img src="@item.Image" alt="">
+
+            <div>
+                <h6 class="work-title" style="font-size:1rem;">@item.Title</h6>
+                <hr class="work-hr">
+                <p class="work-description" style="font-size:0.82rem;">
+                    @item.ShortDescription
+                </p>
+            </div>
+        </a>
+    }
+}

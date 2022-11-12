@@ -1,0 +1,39 @@
+﻿
+@model IEnumerable<personal_web.Models.History>
+
+@{
+    ViewBag.Title = "History";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    /*History Section*/
+
+    .history__data {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        font-weight: var(--font-semi);
+        padding: .5rem 1rem;
+        margin-bottom: var(--mb-4);
+        border-radius: .5rem;
+
+    }
+</style>
+
+
+@if (Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="history__data">
+            <span class="history__name"><i class="fa fa-angle-double-right" style="color: #85C1E9; font-size: 1.5rem; "></i> &nbsp; @item.Description</span>
+         
+        </div>
+
+    }
+}
+

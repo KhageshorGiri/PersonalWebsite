@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_webLayout.cshtml";
+}
+
+<!--===== HEADER =====-->
+<header class="l-header">
+    <nav class="nav bd-grid">
+        <div>
+            <a href="#" class="nav__logo">
+                KG
+            </a>
+        </div>
+
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
+                <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
+                <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
+                <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="nav__toggle" id="nav-toggle">
+            <i class='bx bx-menu'></i>
+        </div>
+    </nav>
+</header>
+
+
+<section class="main-bg-section section" id="home">
+    <div class="container">
+@*
+        <div class="flex inner-main-section split">
+            <div class="left-section item-center flex-1">
+                <img src="~/Images/my_photojpg.jpg" style="width:70%; border-radius:2%;">
+                <img src="" />
+            </div>
+            <div class="right-section flex-1">
+                <h6>Khageshor Giri</h6>
+                <h1>I am <span> Software Engineer </span></h1>
+                <p class="home-description">
+                    Web developer in ASP.NET.
+                    I worked on projects at different scales. 
+                    I lead and design as well as develop end-to-end user centered driven process that research, concepting, wireframing,
+                    interacting prototyping, user interface design.
+                </p>
+                <div>
+                    <a href="#contact" class="btn btn-primary">Contact</a>
+                </div>
+                <div class="home__social">
+                    <a href="" class="home__social-icon "><i class='bx bxl-facebook'></i></a>
+                    <a href="" class="home__social-icon home-social-icon-p"><i class='bx bxl-instagram'></i></a>
+                    <a href="" class="home__social-icon home-social-icon-p"><i class='bx bxl-linkedin'></i></a>
+                </div>
+            </div>
+        </div>*@
+      @Html.Action("Background","Home")
+    </div>
+</section>
+
+
+<section class="about-section section" id="about">
+    <div class="container">
+        <h2 class="text-center text-title">About</h2>
+        
+        @Html.Action("About", "Home")
+       
+    </div>
+</section>
+
+<section class="skill-section section" id="skills">
+    <div class="container">
+        <h2 class="text-center text-title">Profesional Skills</h2>
+        @Html.Action("Skills","Home")
+
+       
+    </div>
+</section>
+
+<section class="history-section section" id="History">
+    <div class="container">
+        <h2 class="text-center text-title">Profesional Experices</h2>
+        @Html.Action("History", "Home")
+
+
+    </div>
+</section>
+
+<!-- Call to action section -->
+<section class="calltoaction-section section">
+    <div class="container">
+        <div class="text-center">
+            <p>
+                @ViewBag.callToAction
+            </p>
+        </div>
+        <div class="text-center">
+            <a href="#contact" class="btn btn-primary">Contact</a>
+           
+        </div>
+    </div>
+</section>
+
+<!--===== WORK =====-->
+<section class="work-section section" id="work">
+    <div class="container">
+        <h2 class="text-center text-title">Work</h2>
+
+        <div class="work__container flex split">
+            @Html.Action("Blogs", "Home")
+        </div>
+
+        <div class="text-center">
+
+            <a href="@Url.Action("BlogDetails","Home")" class="btn btn-primary">Read More</a>
+        </div>
+       
+    </div>
+
+</section>
+
+<!-- ===== Contact Section ====== -->
+<section class="contact-section section" id="contact">
+
+    <div class="container">
+        <h2 class="text-title text-center">Contact</h2>
+        @Html.Action("Contact","Home")
+    </div>
+    
+</section>
+
+
+<!--===== FOOTER =====-->
+<footer class="footer-section ">
+    <div class="container">
+        <h2 class="text-center text-title">@ViewBag.Name</h2>
+        <div class="footer__social">
+            <a href="#" class="footer__icon"><i class='bx bxl-facebook'></i></a>
+            <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
+            <a href="#" class="footer__icon"><i class='bx bxl-twitter'></i></a>
+        </div>
+        <p class="footer__copy">&#169; @ViewBag.Name. All rigths reserved</p>
+    </div>
+
+</footer>

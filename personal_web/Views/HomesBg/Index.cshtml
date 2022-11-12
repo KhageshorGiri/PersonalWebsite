@@ -1,0 +1,52 @@
+﻿@model IEnumerable<personal_web.Models.Home>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<div class="table-responsive">
+    <table class="table table-striped" id="homeTableIndex">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TitleDescription)
+                </th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.Image" style="width:40%; height:auto;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TitleDescription)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.HomeID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.HomeID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+      
+
+    </table>
+
+</div>
+

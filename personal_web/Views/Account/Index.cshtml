@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@{ 
+    var errorMgs = TempData["Msg"] as string;
+}
+
+<div>
+    @using (Html.BeginForm("UpdateProfile","Account")) { 
+    <div class="row mt-3">
+        <div class="col-md-8">
+            <div class="form-group col-md-11">
+                <label>Old Password</label>
+                <input class="form-control" name="oldPassword" id="oldPassword" />
+                @if (errorMgs != "")
+                {
+                    <label class="text-danger">@errorMgs</label>
+                }
+            </div>
+
+            <div class="form-group col-md-11">
+                <label>New Password</label>
+                <input class="form-control" name="newPassword" id="newPassword" />
+
+            </div>
+
+            <div class="form-group col-md-11">
+                <label>Conform Password</label>
+                <input class="form-control" name="conformPassword" id="conformPassword" />
+
+            </div>
+        </div>
+        <div class="col-md-4 mt-5">
+            <ul>
+                <li>Rule one</li>
+                <li>Rule two</li>
+                <li>Rule three</li>
+                <li>Rule four</li>
+                <li>Rule five</li>
+            </ul>
+        </div>
+       
+    </div>
+    <div class="form-group mt-2">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update" class="btn btn-info" />
+            <input type="reset" value="Clear" class="btn btn-secondary ml-2" />
+        </div>
+    </div>
+    }
+</div>
+

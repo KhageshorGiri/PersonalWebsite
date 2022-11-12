@@ -1,0 +1,27 @@
+﻿
+@model IEnumerable<personal_web.Models.About>
+
+@{
+    ViewBag.Title = "About";
+    Layout = null;
+}
+
+@if (Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="split about-split">
+            <div>
+                <h5><i>@item.Qutation</i></h5>
+                <p>
+                   @item.Description
+
+                </p>
+            </div>
+
+            <div class="about-img">
+                <img src="@item.Image">
+            </div>
+        </div>
+    }
+}

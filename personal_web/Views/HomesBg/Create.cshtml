@@ -1,0 +1,107 @@
+﻿@model personal_web.Models.Home
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><h6>Home Create</h6></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false"><h6>Home Detais Index</h6></a>
+    </li>
+   
+</ul>
+<div class="tab-content mt-3" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+        @using (Html.BeginForm("Create","HomesBg", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.TitleDescription, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.TitleDescription, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TitleDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(model => model.Image, "Bg Image (Format:png, Width:600, Height400: Bitdepth:6-10)", htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        <input name="Image" value="ImageString" hidden type="hidden" readonly/>
+                        @Html.Editor("ImageFile", new { htmlAttributes = new { @class = "form-control", type = "file" } })
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(model => model.Introduction, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        <textarea rows="2" class="form-control" id="Introduction" name="Introduction"></textarea>
+
+                        @Html.ValidationMessageFor(model => model.Introduction, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(model => model.CalltoAction, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.CalltoAction, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CalltoAction, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-info" />
+                    <input type="reset" value="Clear" class="btn btn-secondary ml-2" />
+                </div>
+            </div>
+        }
+
+
+    </div>
+    <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+        @Html.Action("Index","HomesBg")
+    </div>
+   
+</div>
+
+
+
+@section Scripts{
+
+    <link href="~/Scripts/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/datatables/jquery.dataTables.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            $("#homeTableIndex").DataTable();
+
+
+        });
+
+
+
+    </script>
+
+
+}

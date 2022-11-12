@@ -1,0 +1,61 @@
+﻿@model IEnumerable<personal_web.Models.Blog>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<div class="table-responsive">
+    <table class="table table-striped" id="BlogsIndexDetails">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShortDescription)
+                </th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.Image" style="width:150px; height:auto;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShortDescription)
+                    </td>
+
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BlogID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.BlogID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BlogID })
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+
+    </table>
+
+</div>

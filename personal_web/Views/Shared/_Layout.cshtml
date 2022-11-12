@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <!-- =====BOX ICONS===== -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+
+        @*overwritting form control class*@
+        .form-control:focus {
+            border-color: #BF40BF;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 2px rgba(255, 100, 255, 0.5);
+            -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 3px rgba(255, 100, 255, 0.5);
+        }
+
+        .page-heading {
+            padding: 0.1rem;
+            background-color: #A2D9CE;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>KG</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <li>
+                    <a href="@Url.Action("Dashbord","Home")">Dashbord</a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Create","HomesBg")">Home</a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Create","Abouts")">About</a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("create","Skills")">Skills</a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("BlogCateogry","Blogs")">Blog Category</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Create","Blogs")">Blogs</a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Index","Contact")">Contacts</a>
+                </li>
+
+
+                <li>
+                    <a href="@Url.Action("Index","Account")">Profile</a>
+                </li>
+            </ul>
+
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light py-3 mb-0" style="background-color: #EBEDEF; margin-top: 0px; ">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class='bx bx-menu'></i>
+                        
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class='bx bx-menu'></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link text-info" href="#">@User.Identity.Name</a>
+                            </li>
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item active">
+                                    <a class="nav-link text-danger" asp-controller="Home" asp-action="Logout">Logout</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container container-fluid container-xl body-content mt-2 col-12">
+                @RenderBody()
+
+            </div>
+
+
+        </div>
+        <footer class=" footer text-muted fixed-bottom">
+            <div class="container text-center">
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </div>
+        </footer>
+    </div>
+   
+
+    @RenderSection("scripts", required: false)
+
+
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+</html>
