@@ -7,8 +7,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using personal_web.Iterfaces;
 using personal_web.Model_Context;
 using personal_web.Models;
+using personal_web.Reositories;
 
 namespace personal_web.Controllers
 {
@@ -16,16 +18,23 @@ namespace personal_web.Controllers
     public class BlogsController : Controller
     {
         private PersonalWeb_context db = new PersonalWeb_context();
+        private IBlogs blogRepository;
 
+        public BlogsController()
+        {
+            this.blogRepository = new IBlogRepository(new PersonalWeb_context());
+        }
         // GET: Blogs
         public ActionResult Index()
         {
-            return View(db.Blogs.ToList());
+            IEnumerable<Blog> blogLists = blogRepository.GetAllBlogs();
+            return View(blogLists);
         }
 
         public ActionResult BlogCategoryIndex()
         {
-            return View(db.BlogCategories.ToList());
+            IEnumerable<BlogCategory> blogCategories = blogRepository.GetBlogCategories();
+            return View(blogCategories);
         }
         public ActionResult BlogCateogry()
         {
@@ -38,8 +47,7 @@ namespace personal_web.Controllers
         {
             BlogCategory category = new BlogCategory();
             category.Category = Category;
-            db.BlogCategories.Add(category);
-            db.SaveChanges();
+            blogRepository.CreateBlogCategory(category);
             return RedirectToAction("BlogCateogry", "Blogs");
         }
 
@@ -50,7 +58,7 @@ namespace personal_web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = blogRepository.GetBlog(Convert.ToInt32(id));
             if (blog == null)
             {
                 return HttpNotFound();
@@ -81,11 +89,14 @@ namespace personal_web.Controllers
                 blog.Image = "/Images/" + filename;
 
                 blog.CategoryID = BlogCategory;
-                db.Blogs.Add(blog);
-                db.SaveChanges();
+
+                blogRepository.CreateBlog(blog);
+
+                TempData["Sucess"] = "Post Blog is Created.";
                 return RedirectToAction("create");
             }
             ViewBag.BlogCategory = new SelectList(db.BlogCategories, "CategoryID", "Category");
+            TempData["Fail"] = "Unable to Crate Blog Post.";
             return View(blog);
         }
 
@@ -132,7 +143,7 @@ namespace personal_web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = blogRepository.GetBlog(Convert.ToInt32(id));
             if (blog == null)
             {
                 return HttpNotFound();
@@ -149,8 +160,7 @@ namespace personal_web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(blog).State = EntityState.Modified;
-                db.SaveChanges();
+                blogRepository.UpdteBlog(blog);
                 return RedirectToAction("Index");
             }
             return View(blog);
@@ -163,7 +173,7 @@ namespace personal_web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = blogRepository.GetBlog(Convert.ToInt32(id));
             if (blog == null)
             {
                 return HttpNotFound();
@@ -176,9 +186,7 @@ namespace personal_web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Blog blog = db.Blogs.Find(id);
-            db.Blogs.Remove(blog);
-            db.SaveChanges();
+            blogRepository.DeleteBlog(id);
             return RedirectToAction("Index");
         }
 

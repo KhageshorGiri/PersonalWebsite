@@ -13,6 +13,8 @@ namespace personal_web.Iterfaces
 
         IEnumerable<BlogCategory> GetBlogCategories();
 
+        void CreateBlogCategory(BlogCategory blogCategory);
+
         Blog GetBlog(int Id);
 
         void CreateBlog(Blog blog);
