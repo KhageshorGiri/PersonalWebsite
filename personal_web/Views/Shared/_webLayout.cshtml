@@ -21,6 +21,19 @@
 
     <!--===== MAIN JS =====-->
     <script src="~/Scripts/main.js"></script>
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
 
+    <script>
+        $("#checkBoxForMessage").click(function () {
+            if ($("#checkBoxForMessage").prop('checked')) {
+                $("#SendMessage").prop('disabled', false);
+            }
+            else {
+                $("#SendMessage").prop('disabled', true);
+            }
+        });
+    </script>
 </body>
 </html>

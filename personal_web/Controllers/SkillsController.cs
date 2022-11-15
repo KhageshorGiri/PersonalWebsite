@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using personal_web.Iterfaces;
+using personal_web.Reositories;
 
 namespace personal_web.Controllers
 {
@@ -13,10 +15,15 @@ namespace personal_web.Controllers
     public class SkillsController : Controller
     {
         private readonly PersonalWeb_context db = new PersonalWeb_context();
+        private ISkill skillRepository;
+        public SkillsController()
+        {
+            this.skillRepository = new ISkillRepository(new PersonalWeb_context());
+        }
         // GET: Skills
         public ActionResult Index()
         {
-            var skills = db.Skills.ToList();
+            var skills = skillRepository.GetSkills();
             return View(skills);
         }
 
@@ -38,19 +45,19 @@ namespace personal_web.Controllers
                 skill.Image = "/images/" + filename;
 
                 skill.Description = Description;
-                db.Skills.Add(skill);
 
-                foreach(var item in skill_list)
+                skillRepository.CreateSkill(skill);
+
+                foreach (var item in skill_list)
                 {
                     if (item != "" && item != null)
                     {
                         skillAttribute skill_atr = new skillAttribute();
                         skill_atr.SkillTitle = item;
                         skill_atr.SkillID = skill.SkillID;
-                        db.SkillAttributes.Add(skill_atr);
+                        skillRepository.CreateSkillAttribute(skill_atr);
                     }
                 }
-                db.SaveChanges();
             }
             return RedirectToAction("create");
         }

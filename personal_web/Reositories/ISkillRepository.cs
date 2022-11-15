@@ -1,4 +1,5 @@
 ﻿using personal_web.Iterfaces;
+using personal_web.Model_Context;
 using personal_web.Models;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,16 @@ namespace personal_web.Reositories
 {
     public class ISkillRepository : ISkill
     {
+        private readonly PersonalWeb_context dbContext;
+
+        public ISkillRepository(PersonalWeb_context _context)
+        {
+            this.dbContext = _context;
+        }
         public void CreateSkill(Skill skill)
         {
-            throw new NotImplementedException();
+            dbContext.Skills.Add(skill);
+            dbContext.SaveChanges();
         }
 
         public void DeleteSkill(int Id)
@@ -21,17 +29,23 @@ namespace personal_web.Reositories
 
         public Skill GetSkill(int Id)
         {
-            throw new NotImplementedException();
+            return dbContext.Skills.Find(Id);
         }
 
         public IEnumerable<Skill> GetSkills()
         {
-            throw new NotImplementedException();
+            return dbContext.Skills.ToList();
         }
 
         public void UpdateSkill(Skill skill)
         {
             throw new NotImplementedException();
+        }
+
+        public void CreateSkillAttribute(skillAttribute skillAttribute)
+        {
+            dbContext.SkillAttributes.Add(skillAttribute);
+            dbContext.SaveChanges();
         }
     }
 }

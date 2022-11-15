@@ -15,6 +15,8 @@ namespace personal_web.Iterfaces
 
         void CreateSkill(Skill skill);
 
+        void CreateSkillAttribute(skillAttribute skillAttribute);
+
         void UpdateSkill(Skill skill);
 
         void DeleteSkill(int Id);

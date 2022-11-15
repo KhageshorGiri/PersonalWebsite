@@ -31,32 +31,32 @@
 
 <section class="main-bg-section section" id="home">
     <div class="container">
-@*
-        <div class="flex inner-main-section split">
-            <div class="left-section item-center flex-1">
-                <img src="~/Images/my_photojpg.jpg" style="width:70%; border-radius:2%;">
-                <img src="" />
-            </div>
-            <div class="right-section flex-1">
-                <h6>Khageshor Giri</h6>
-                <h1>I am <span> Software Engineer </span></h1>
-                <p class="home-description">
-                    Web developer in ASP.NET.
-                    I worked on projects at different scales. 
-                    I lead and design as well as develop end-to-end user centered driven process that research, concepting, wireframing,
-                    interacting prototyping, user interface design.
-                </p>
-                <div>
-                    <a href="#contact" class="btn btn-primary">Contact</a>
+        @*
+            <div class="flex inner-main-section split">
+                <div class="left-section item-center flex-1">
+                    <img src="~/Images/my_photojpg.jpg" style="width:70%; border-radius:2%;">
+                    <img src="" />
                 </div>
-                <div class="home__social">
-                    <a href="" class="home__social-icon "><i class='bx bxl-facebook'></i></a>
-                    <a href="" class="home__social-icon home-social-icon-p"><i class='bx bxl-instagram'></i></a>
-                    <a href="" class="home__social-icon home-social-icon-p"><i class='bx bxl-linkedin'></i></a>
+                <div class="right-section flex-1">
+                    <h6>Khageshor Giri</h6>
+                    <h1>I am <span> Software Engineer </span></h1>
+                    <p class="home-description">
+                        Web developer in ASP.NET.
+                        I worked on projects at different scales.
+                        I lead and design as well as develop end-to-end user centered driven process that research, concepting, wireframing,
+                        interacting prototyping, user interface design.
+                    </p>
+                    <div>
+                        <a href="#contact" class="btn btn-primary">Contact</a>
+                    </div>
+                    <div class="home__social">
+                        <a href="" class="home__social-icon "><i class='bx bxl-facebook'></i></a>
+                        <a href="" class="home__social-icon home-social-icon-p"><i class='bx bxl-instagram'></i></a>
+                        <a href="" class="home__social-icon home-social-icon-p"><i class='bx bxl-linkedin'></i></a>
+                    </div>
                 </div>
-            </div>
-        </div>*@
-      @Html.Action("Background","Home")
+            </div>*@
+        @Html.Action("Background", "Home")
     </div>
 </section>
 
@@ -64,18 +64,18 @@
 <section class="about-section section" id="about">
     <div class="container">
         <h2 class="text-center text-title">About</h2>
-        
+
         @Html.Action("About", "Home")
-       
+
     </div>
 </section>
 
 <section class="skill-section section" id="skills">
     <div class="container">
         <h2 class="text-center text-title">Profesional Skills</h2>
-        @Html.Action("Skills","Home")
+        @Html.Action("Skills", "Home")
 
-       
+
     </div>
 </section>
 
@@ -98,7 +98,7 @@
         </div>
         <div class="text-center">
             <a href="#contact" class="btn btn-primary">Contact</a>
-           
+
         </div>
     </div>
 </section>
@@ -116,7 +116,7 @@
 
             <a href="@Url.Action("BlogDetails","Home")" class="btn btn-primary">Read More</a>
         </div>
-       
+
     </div>
 
 </section>
@@ -126,9 +126,9 @@
 
     <div class="container">
         <h2 class="text-title text-center">Contact</h2>
-        @Html.Action("Contact","Home")
+        @Html.Action("Contact", "Home")
     </div>
-    
+
 </section>
 
 
@@ -145,3 +145,4 @@
     </div>
 
 </footer>
+
