@@ -7,36 +7,28 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using personal_web.Iterfaces;
 using personal_web.Model_Context;
 using personal_web.Models;
+using personal_web.Reositories;
 
 namespace personal_web.Controllers
 {
     [Authorize(Roles = "SuperAdmin")]
     public class AboutsController : Controller
     {
-        private PersonalWeb_context db = new PersonalWeb_context();
+        private readonly IAbouts aboutRepository;
 
+        public AboutsController()
+        {
+            aboutRepository = new IAboutRepository(new PersonalWeb_context());
+        }
         // GET: Abouts
         public ActionResult Index()
         {
-            return View(db.Abouts.ToList());
+            return View(aboutRepository.GetAbouts());
         }
 
-      /*  // GET: Abouts/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            About about = db.Abouts.Find(id);
-            if (about == null)
-            {
-                return HttpNotFound();
-            }
-            return View(about);
-        }*/
 
         // GET: Abouts/Create
         public ActionResult Create()
@@ -58,8 +50,7 @@ namespace personal_web.Controllers
                 ImageFile.SaveAs(path);
                 about.Image = "/images/" + filename;
 
-                db.Abouts.Add(about);
-                db.SaveChanges();
+                aboutRepository.CreateAbout(about);
                 return RedirectToAction("Create");
             }
 
@@ -73,7 +64,7 @@ namespace personal_web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            About about = db.Abouts.Find(id);
+            About about = aboutRepository.GetAbout(Convert.ToInt32(id));
             if (about == null)
             {
                 return HttpNotFound();
@@ -90,8 +81,7 @@ namespace personal_web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(about).State = EntityState.Modified;
-                db.SaveChanges();
+                aboutRepository.UpdateAbout(about);
                 return RedirectToAction("Index");
             }
             return View(about);
@@ -100,30 +90,15 @@ namespace personal_web.Controllers
         // GET: Abouts/Delete/5
         public ActionResult Delete(int? id)
         {
-            About about = db.Abouts.Find(id);
-            db.Abouts.Remove(about);
-            db.SaveChanges();
+            About about = aboutRepository.GetAbout(Convert.ToInt32(id));
+            if(about == null)
+            {
+                return HttpNotFound();
+            }
+            aboutRepository.DeleteAbout(about);
             return RedirectToAction("Create");
         }
 
-       /* // POST: Abouts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            About about = db.Abouts.Find(id);
-            db.Abouts.Remove(about);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }*/
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+    
     }
 }

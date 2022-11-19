@@ -17,6 +17,6 @@ namespace personal_web.Iterfaces
 
         void UpdateAbout(About about);
 
-        void DeleteAbout(int Id);
+        void DeleteAbout(About about);
     }
 }

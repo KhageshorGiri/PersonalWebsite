@@ -11,8 +11,11 @@ namespace personal_web.Iterfaces
     {
         IEnumerable<History> GetHistories();
 
+        History GetHistory(int Id);
         void CreateHistory(History history);
 
-        void DeleteHistory(int Id);
+        void DeleteHistory(History history);
+
+        void UpdateHistory(History history);
     }
 }

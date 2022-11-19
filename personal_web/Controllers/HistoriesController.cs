@@ -6,19 +6,26 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using personal_web.Iterfaces;
 using personal_web.Model_Context;
 using personal_web.Models;
+using personal_web.Reositories;
 
 namespace personal_web.Controllers
 {
     public class HistoriesController : Controller
     {
-        private PersonalWeb_context db = new PersonalWeb_context();
+        private readonly IHistory historyRepository;
+
+        public HistoriesController()
+        {
+            this.historyRepository = new IHistoryRepository(new PersonalWeb_context());
+        }
 
         // GET: Histories
         public ActionResult Index()
         {
-            return View(db.Histories.ToList());
+            return View(historyRepository.GetHistories());
         }
 
 
@@ -37,8 +44,7 @@ namespace personal_web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Histories.Add(history);
-                db.SaveChanges();
+                historyRepository.CreateHistory(history);
                 return RedirectToAction("create");
             }
 
@@ -52,7 +58,7 @@ namespace personal_web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            History history = db.Histories.Find(id);
+            History history = historyRepository.GetHistory(Convert.ToInt32(id));
             if (history == null)
             {
                 return HttpNotFound();
@@ -69,8 +75,7 @@ namespace personal_web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(history).State = EntityState.Modified;
-                db.SaveChanges();
+                historyRepository.UpdateHistory(history);
                 return RedirectToAction("create");
             }
             return View(history);
@@ -79,30 +84,15 @@ namespace personal_web.Controllers
         // GET: Histories/Delete/5
         public ActionResult Delete(int? id)
         {
-            History history = db.Histories.Find(id);
-            db.Histories.Remove(history);
-            db.SaveChanges();
-            return RedirectToAction("create");
-        }
-
-        /*// POST: Histories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
-        {
-            History history = db.Histories.Find(id);
-            db.Histories.Remove(history);
-            db.SaveChanges();
-            return RedirectToAction("create");
-        }*/
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            History history = historyRepository.GetHistory(Convert.ToInt32(id));
+            if (history == null)
             {
-                db.Dispose();
+                return HttpNotFound();
             }
-            base.Dispose(disposing);
+            historyRepository.DeleteHistory(history);
+            return RedirectToAction("create");
         }
+
+        
     }
 }
