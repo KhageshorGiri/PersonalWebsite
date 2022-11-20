@@ -146,6 +146,7 @@
     <Compile Include="Iterfaces\IBlogs.cs" />
     <Compile Include="Iterfaces\IContact.cs" />
     <Compile Include="Iterfaces\IHistory.cs" />
+    <Compile Include="Iterfaces\IHomeBg.cs" />
     <Compile Include="Iterfaces\ISkill.cs" />
     <Compile Include="Migrations\202204250607598_initial_setup.cs" />
     <Compile Include="Migrations\202204250607598_initial_setup.designer.cs">
@@ -170,6 +171,7 @@
     <Compile Include="Reositories\IBlogRepository.cs" />
     <Compile Include="Reositories\IContactRepository.cs" />
     <Compile Include="Reositories\IHistoryRepository.cs" />
+    <Compile Include="Reositories\IHomeBgRepository.cs" />
     <Compile Include="Reositories\ISkillRepository.cs" />
   </ItemGroup>
   <ItemGroup>

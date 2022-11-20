@@ -7,20 +7,25 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using personal_web.Iterfaces;
 using personal_web.Model_Context;
 using personal_web.Models;
+using personal_web.Reositories;
 
 namespace personal_web.Controllers
 {
     [Authorize(Roles = "SuperAdmin")]
     public class HomesBgController : Controller
     {
-        private PersonalWeb_context db = new PersonalWeb_context();
-
+        private readonly IHomeBg homeRepository;
+        public HomesBgController()
+        {
+            homeRepository = new IHomeBgRepository(new PersonalWeb_context());
+        }
         // GET: HomesBg
         public ActionResult Index()
         {
-            return View(db.Homes.ToList());
+            return View(homeRepository.GetHomeBgData());
         }
 
 
@@ -43,12 +48,13 @@ namespace personal_web.Controllers
                 var path = Path.Combine(Server.MapPath("~/images"), filename);
                 ImageFile.SaveAs(path);
                 home.Image = "/images/" + filename;
+                homeRepository.CreateHomeBgDate(home);
 
-                db.Homes.Add(home);
-                db.SaveChanges();
+                TempData["Sucess"] = "Data Created Sucessfully.";
+
                 return RedirectToAction("Create");
             }
-
+            TempData["Fail"] = "We are not able to save your data.";
             return View(home);
         }
 
@@ -59,7 +65,7 @@ namespace personal_web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Home home = db.Homes.Find(id);
+            Home home = homeRepository.GetHomeBgData(Convert.ToInt32(id));
             if (home == null)
             {
                 return HttpNotFound();
@@ -76,40 +82,27 @@ namespace personal_web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(home).State = EntityState.Modified;
-                db.SaveChanges();
+                homeRepository.UpdateHomeBgData(home);
+
+                TempData["Sucess"] = "Data Edited Sucessfully.";
                 return RedirectToAction("Index");
             }
+            TempData["Fail"] = "We are not able to edit your data.";
             return View(home);
         }
 
         // GET: HomesBg/Delete/5
         public ActionResult Delete(int? id)
         {
-            Home home = db.Homes.Find(id);
-            db.Homes.Remove(home);
-            db.SaveChanges();
+            Home home = homeRepository.GetHomeBgData(Convert.ToInt32(id));
+            if (home == null)
+            {
+                return HttpNotFound();
+            }
+            homeRepository.DeleteHoeBgData(home);
+            TempData["Sucess"] = "Data Deleted Sucessfully.";
             return RedirectToAction("Create");
         }
 
-       /* // POST: HomesBg/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Home home = db.Homes.Find(id);
-            db.Homes.Remove(home);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }*/
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using personal_web.Iterfaces;
+using personal_web.Model_Context;
 using personal_web.Models;
 using System;
 using System.Collections.Generic;
@@ -9,24 +10,32 @@ namespace personal_web.Reositories
 {
     public class IContactRepository : IContact
     {
+        private readonly PersonalWeb_context dbContext;
+
+        public IContactRepository(PersonalWeb_context context)
+        {
+            this.dbContext = context;
+        }
         public void CreateContactMessage(Contact contact)
         {
-            throw new NotImplementedException();
+            dbContext.Contacts.Add(contact);
+            dbContext.SaveChanges();
         }
 
-        public void DeleteContactMessage(int Id)
+        public void DeleteContactMessage(Contact contact)
         {
-            throw new NotImplementedException();
+            dbContext.Contacts.Remove(contact);
+            dbContext.SaveChanges();
         }
 
         public Contact GetContactMessage(int Id)
         {
-            throw new NotImplementedException();
+            return dbContext.Contacts.Find(Id);
         }
 
         public IEnumerable<Contact> GetContactMessages()
         {
-            throw new NotImplementedException();
+            return dbContext.Contacts.ToList();
         }
 
         public void SendReponse()

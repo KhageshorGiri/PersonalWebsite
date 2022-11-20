@@ -51,9 +51,13 @@ namespace personal_web.Controllers
                 about.Image = "/images/" + filename;
 
                 aboutRepository.CreateAbout(about);
+
+                TempData["Sucess"] = "About Data Create Sucessfully.";
+
                 return RedirectToAction("Create");
             }
 
+            TempData["Fail"] = "We are not able to create about data.";
             return View(about);
         }
 
@@ -82,8 +86,10 @@ namespace personal_web.Controllers
             if (ModelState.IsValid)
             {
                 aboutRepository.UpdateAbout(about);
+                TempData["Sucess"] = "About Data Edited Sucessfully.";
                 return RedirectToAction("Index");
             }
+            TempData["Fail"] = "We are not able to edit about data.";
             return View(about);
         }
 
@@ -95,6 +101,7 @@ namespace personal_web.Controllers
             {
                 return HttpNotFound();
             }
+            TempData["Sucess"] = "About Data Deleted Sucessfully.";
             aboutRepository.DeleteAbout(about);
             return RedirectToAction("Create");
         }

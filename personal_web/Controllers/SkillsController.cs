@@ -58,7 +58,10 @@ namespace personal_web.Controllers
                         skillRepository.CreateSkillAttribute(skill_atr);
                     }
                 }
+                TempData["Sucess"] = "Skills Data Added Sucessfully.";
+                return RedirectToAction("create");
             }
+            TempData["Fail"] = "We are not able to add skill data.";
             return RedirectToAction("create");
         }
     }

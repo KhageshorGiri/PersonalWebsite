@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using personal_web.Iterfaces;
 using personal_web.Model_Context;
+using personal_web.Reositories;
 
 namespace personal_web.Controllers
 {
@@ -11,10 +13,17 @@ namespace personal_web.Controllers
     public class ContactController : Controller
     {
         private readonly PersonalWeb_context db = new PersonalWeb_context();
+        private IContact contactrepository;
+
+        public ContactController()
+        {
+            contactrepository = new IContactRepository(new PersonalWeb_context());
+        }
+
         // GET: Contact
         public ActionResult Index()
         {
-            var contacts = db.Contacts.OrderByDescending(x=>x.ContactID).ToList();
+            var contacts = contactrepository.GetContactMessages().OrderByDescending(contact => contact.ContactID);
             return View(contacts);
         }
 

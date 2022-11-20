@@ -15,7 +15,7 @@ namespace personal_web.Iterfaces
 
         void CreateContactMessage(Contact contact);
 
-        void DeleteContactMessage(int Id);
+        void DeleteContactMessage(Contact contact);
 
         void SendReponse();
     }

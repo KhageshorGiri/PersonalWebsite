@@ -4,6 +4,33 @@
     ViewBag.Title = "Create";
 }
 
+@{
+    string succesMessage = TempData["Sucess"] as string;
+    string errorMessage = TempData["Fail"] as string;
+}
+
+@{
+    if (!string.IsNullOrEmpty(succesMessage))
+    {
+        <div class="alert alert-success alert-fixed" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Sucess!</strong> '@succesMessage'.
+
+        </div>
+
+    }
+
+    if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error!</strong> '@errorMessage'.
+        </div>
+    }
+}
+
+
+
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><h6>About Create</h6></a>
@@ -25,7 +52,7 @@
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group col-md-6">
-                    <input name="Image" value="ImageString" style="display:none"/>
+                    <input name="Image" value="ImageString" style="display:none" />
                     @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-12" })
                     <div class="col-md-12">
                         @Html.Editor("ImageFile", new { htmlAttributes = new { @class = "form-control", type = "file" } })

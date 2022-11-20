@@ -9,8 +9,10 @@ namespace personal_web.Iterfaces
 {
     interface IAccount
     {
-        void UpdateProfile(string oldPassword, string newPassword);
+        void UpdateProfile(User user);
 
         User GetUser(string userName);
+
+        void CreateUser(User user);
     }
 }

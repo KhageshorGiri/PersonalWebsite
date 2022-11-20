@@ -3,6 +3,30 @@
     ViewBag.Title = "Create";
 }
 
+@{
+    string succesMessage = TempData["Sucess"] as string;
+    string errorMessage = TempData["Fail"] as string;
+}
+
+@{
+    if (!string.IsNullOrEmpty(succesMessage))
+    {
+        <div class="alert alert-success alert-fixed" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Sucess!</strong> '@succesMessage'.
+
+        </div>
+
+    }
+
+    if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error!</strong> '@errorMessage'.
+        </div>
+    }
+}
 
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -22,52 +46,52 @@
         {
 
 
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label>Image</label>
-                <div class="col-md-12">
-                    <input id="Image" name="Image" class="form-control" type="file" />
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Description</label>
-                <div class="col-md-12">
-                    <input id="Description" name="Description" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group col-md-12">
-                <label>Skill</label>
-                <div class="col-md-12">
-                    <div class="row">
-                        <input class="col-md-10 form-control" id="skillTitle" />
-                        <button id="addToTable" type="button" class="btn btn-primary px-3">Add</button>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Image</label>
+                    <div class="col-md-12">
+                        <input id="Image" name="Image" class="form-control" type="file" />
                     </div>
-                    <label class="text-danger" id="skillErrorMgs" style="display:none;">Please Provide Skill</label>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Description</label>
+                    <div class="col-md-12">
+                        <input id="Description" name="Description" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Skill</label>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <input class="col-md-10 form-control" id="skillTitle" />
+                            <button id="addToTable" type="button" class="btn btn-primary px-3">Add</button>
+                        </div>
+                        <label class="text-danger" id="skillErrorMgs" style="display:none;">Please Provide Skill</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mt-3">
+                <table class="table table-sm" id="skillList">
+                    <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Skill</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <input id="tableData_value" name="skilltableData" style="display:none;" />
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" id="createSkill" value="Create" class="btn btn-info" />
+                    <input type="reset" id="clear" value="Clear" class="btn btn-secondary ml-2" />
                 </div>
             </div>
-
-        </div>
-        <div class="mt-3">
-            <table class="table table-sm" id="skillList">
-                <thead>
-                    <tr>
-                        <th>S.N</th>
-                        <th>Skill</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-            <input id="tableData_value"  name="skilltableData" style="display:none;"/>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="button" id="createSkill" value="Create" class="btn btn-info" />
-                <input type="reset" id="clear" value="Clear" class="btn btn-secondary ml-2" />
-            </div>
-        </div>
         }
     </div>
     <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
@@ -113,8 +137,8 @@
                         console.log(tableData);
                     }
                 }
-                
-               
+
+
             });
 
             $("#createSkill").click(function () {

@@ -166,3 +166,4 @@ E:\Binod\WebDevelopmt\Personal_website\personal_web\personal_web\obj\Debug\perso
 E:\Binod\WebDevelopmt\Personal_website\personal_web\personal_web\obj\Debug\personal_web.csproj.CoreCompileInputs.cache
 E:\Binod\WebDevelopmt\Personal_website\personal_web\personal_web\obj\Debug\personal_web.dll
 E:\Binod\WebDevelopmt\Personal_website\personal_web\personal_web\obj\Debug\personal_web.pdb
+E:\Binod\WebDevelopmt\Personal_website\personal_web\personal_web\obj\Debug\personal_web.csproj.CopyComplete

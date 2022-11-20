@@ -8,13 +8,21 @@ using System.Web.Security;
 using personal_web.Model_Context;
 using personal_web.Models;
 using System.Data.Entity;
+using personal_web.Iterfaces;
+using personal_web.Reositories;
 
 namespace personal_web.Controllers
 {
     [Authorize(Roles = "SuperAdmin")]
     public class AccountController : Controller
     {
-        private readonly PersonalWeb_context db = new PersonalWeb_context();
+        private readonly IAccount accountRepository;
+
+        public AccountController()
+        {
+            accountRepository = new IAccountRepository(new PersonalWeb_context());
+        }
+
         // GET: Account
         public ActionResult Index()
         {
@@ -24,7 +32,7 @@ namespace personal_web.Controllers
         public ActionResult UpdateProfile(string oldPassword, string newPassword)
         {
             var userName = User.Identity.Name;
-            var count = db.Users.Where(x => x.UserName == userName).SingleOrDefault();
+            var count = accountRepository.GetUser(userName);
             bool result = PasswordHashing.VerifyPassword(oldPassword, count.Password);
             if(result == false)
             {
@@ -35,8 +43,7 @@ namespace personal_web.Controllers
             {
                 User user = new User();
                 user.Password = PasswordHashing.CreateHash(newPassword);
-                db.Entry(User).State = EntityState.Modified;
-                db.SaveChanges();
+                accountRepository.UpdateProfile(user);
                 return RedirectToAction("Dashbord", "Home");
             }
         }
@@ -52,7 +59,7 @@ namespace personal_web.Controllers
         [AllowAnonymous]
         public ActionResult Login(string username, string password)
         {
-            var count = db.Users.Where(x => x.UserName == username).SingleOrDefault();
+            var count = accountRepository.GetUser(username);
             if (count == null)
             {
                 ViewBag.Msg = "Invalid Login Attempt........";
@@ -63,7 +70,7 @@ namespace personal_web.Controllers
             {
                 FormsAuthentication.SetAuthCookie(password, false);
 
-                var role_value = db.Users.Where(x => x.UserName == username).FirstOrDefault().Role;
+                var role_value = accountRepository.GetUser(username).Role;
 
                 if (role_value == "SuperAdmin")
                 {
