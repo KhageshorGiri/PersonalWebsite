@@ -100,7 +100,9 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item active">
-                                    <a class="nav-link text-danger" asp-controller="Home" asp-action="Logout">Logout</a>
+                                    <a class="nav-link text-danger" href="@Url.Action("Logout", "Account")">
+                                        Logout
+                                    </a>
                                 </li>
                             }
                         </ul>
@@ -115,11 +117,7 @@
 
 
         </div>
-        <footer class=" footer text-muted fixed-bottom">
-            <div class="container text-center">
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </div>
-        </footer>
+     
     </div>
    
 

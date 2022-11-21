@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using personal_web.Iterfaces;
 using personal_web.Model_Context;
+using personal_web.Models;
 using personal_web.Reositories;
 
 namespace personal_web.Controllers
@@ -33,8 +34,17 @@ namespace personal_web.Controllers
             return View();
         }
 
-       
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(string FullName, string Email, string Message)
+        {
+            Contact contact = new Contact();
+            contact.FullName = FullName;
+            contact.Email = Email;
+            contact.Message = Message;
+            contactrepository.CreateContactMessage(contact);
+            return RedirectToAction("Index","Home");
+        }
         
         // GET: Contact/Delete/5
         public ActionResult Delete(int id)

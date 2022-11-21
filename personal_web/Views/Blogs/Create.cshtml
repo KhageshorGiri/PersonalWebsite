@@ -10,7 +10,7 @@
 }
 
 @{ 
-    if (string.IsNullOrEmpty(succesMessage))
+    if (!string.IsNullOrEmpty(succesMessage))
     {
     <div class="alert alert-success alert-fixed" role="alert">
         <button type="button" class="close" data-dismiss="alert">&times;</button>

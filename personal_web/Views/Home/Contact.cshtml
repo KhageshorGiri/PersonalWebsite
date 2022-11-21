@@ -9,19 +9,23 @@
 
 <!--===== CONTACT =====-->
 <div class="contact__container bd-grid">
-    <form action="" class="contact__form">
-        <input type="text" placeholder="Name" class="contact__input">
-        <input type="email" placeholder="Email" class="contact__input">
-        <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
-        <div class="text-center form-inline mb-2" style="margin-top:0">
-            <input type="checkbox" style="width:15px; height:15px" class="mr-1" id="checkBoxForMessage" value="None" />
-            <label style="font-size:14px;">I accept all the trems and condition for sending message.</label>
-        </div>
+    @using (Html.BeginForm("Create","Contact"))
+    {
+        @Html.AntiForgeryToken()
+        <form action="" class="contact__form">
+            <input type="text" placeholder="Name" class="contact__input" id="Contact_Form_name" name="FullName">
+            <input type="email" placeholder="Email" class="contact__input" id="Contact_Form_email" name="Email">
+            <textarea cols="0" rows="10" class="contact__input" id="Contact_Form_message" name="Message"></textarea>
+            <div class="text-center form-inline mb-2" style="margin-top:0">
+                <input type="checkbox" style="width:15px; height:15px" class="mr-1" id="checkBoxForMessage" value="None" />
+                <label style="font-size:14px;">I accept all the trems and condition for sending message.</label>
+            </div>
 
-        <div class="mt-3">
-            <input type="button" value="Send Message" class="btn btn-primary btn-contact" id="SendMessage" disabled>
-        </div>
+            <div class="mt-3">
+                <input type="submit" value="Send Message" class="btn btn-primary btn-contact" id="SendMessage" disabled>
+            </div>
 
-    </form>
+        </form>
+    }
+
 </div>
-

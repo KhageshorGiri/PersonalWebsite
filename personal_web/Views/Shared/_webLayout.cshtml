@@ -34,6 +34,29 @@
                 $("#SendMessage").prop('disabled', true);
             }
         });
+
+      @*  $("#SendMessage").click(function () {
+
+            const contactData = JSON.stringify({
+                FullName: $("#Contact_Form_name").val(),
+                Email: $("#Contact_Form_email").val(),
+                Message: $("#Contact_Form_message").val()
+            });
+
+            $.ajax({
+
+                url: "@Url.Action("Create","Contact")",
+                type: "POST",
+                dataType: "json",
+                data: contactData,
+                success: function (response) {
+                    alert("Thank you!. We will reach you soon.");
+                },
+                error: function (response) {
+                    alert("Sorry! We cannot send your message.");
+                }
+            });
+        });*@
     </script>
 </body>
 </html>

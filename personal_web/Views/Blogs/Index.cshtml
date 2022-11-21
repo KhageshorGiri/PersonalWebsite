@@ -18,9 +18,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Date)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ShortDescription)
-                </th>
 
                 <th>Action</th>
             </tr>
@@ -40,15 +37,19 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Date)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ShortDescription)
-                    </td>
 
 
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.BlogID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.BlogID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.BlogID })
+                        <button class="btn btn-sm btn-warning">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.BlogID })
+                        </button>
+                        <button class="btn btn-sm btn-success">
+                            @Html.ActionLink("Details", "Details", new { id = item.BlogID })
+                        </button>
+                        <button class="btn btn-sm btn-danger">
+                            @Html.ActionLink("Delete", "Delete", new { id = item.BlogID })
+                        </button>
+                       
                     </td>
                 </tr>
             }

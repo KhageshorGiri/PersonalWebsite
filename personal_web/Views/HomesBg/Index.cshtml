@@ -38,8 +38,13 @@
                     </td>
 
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.HomeID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.HomeID })
+                        <bhtton class="btn btn-sm btn-warning">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.HomeID }) 
+                        </bhtton>
+                        <button class="btn btn-sm btn-danger">
+                            @Html.ActionLink("Delete", "Delete", new { id = item.HomeID })
+                        </button>
+                       
                     </td>
                 </tr>
             }

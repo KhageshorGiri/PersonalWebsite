@@ -37,9 +37,13 @@
                         }
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.SkillID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.SkillID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.SkillID })
+                        <bhtton class="btn btn-sm btn-warning">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.SkillID })
+                        </bhtton>
+                        <button class="btn btn-sm btn-danger">
+                            @Html.ActionLink("Delete", "Delete", new { id = item.SkillID })
+                        </button>
+                    
                     </td>
                 </tr>
             }

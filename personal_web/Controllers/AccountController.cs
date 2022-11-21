@@ -32,8 +32,8 @@ namespace personal_web.Controllers
         public ActionResult UpdateProfile(string oldPassword, string newPassword)
         {
             var userName = User.Identity.Name;
-            var count = accountRepository.GetUser(userName);
-            bool result = PasswordHashing.VerifyPassword(oldPassword, count.Password);
+            User user = accountRepository.GetUser(userName);
+            bool result = PasswordHashing.VerifyPassword(oldPassword, user.Password);
             if(result == false)
             {
                 TempData["Msg"] = "Please Enter Correct Old Passowrd.";
@@ -41,7 +41,6 @@ namespace personal_web.Controllers
             }
             else
             {
-                User user = new User();
                 user.Password = PasswordHashing.CreateHash(newPassword);
                 accountRepository.UpdateProfile(user);
                 return RedirectToAction("Dashbord", "Home");
@@ -68,7 +67,8 @@ namespace personal_web.Controllers
             bool result = PasswordHashing.VerifyPassword(password, count.Password);
             if (result)
             {
-                FormsAuthentication.SetAuthCookie(password, false);
+                FormsAuthentication.SetAuthCookie(username, false);
+                //FormsAuthentication.SetAuthCookie(password, false);
 
                 var role_value = accountRepository.GetUser(username).Role;
 

@@ -54,5 +54,12 @@ namespace personal_web.Reositories
             dbContext.Entry(blog).State = EntityState.Modified;
             dbContext.SaveChanges();
         }
+
+        public void DeleteBlogCategory(int Id)
+        {
+            BlogCategory blogCategory = dbContext.BlogCategories.Find(Id);
+            dbContext.BlogCategories.Remove(blogCategory);
+            dbContext.SaveChanges();
+        }
     }
 }

@@ -36,8 +36,14 @@
                     </td>
 
                     <td>
-                        @Html.ActionLink("Details", "Details", new { id = item.ContactID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ContactID })
+                        <button class="btn btn-sm btn-success">
+                            @Html.ActionLink("Response", "Details", new { id = item.ContactID })
+                        </button>
+                        <button class="btn btn-sm btn-danger">
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ContactID })
+                        </button>
+                        |
+                        
                     </td>
                 </tr>
             }

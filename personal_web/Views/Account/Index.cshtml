@@ -7,6 +7,10 @@
     var errorMgs = TempData["Msg"] as string;
 }
 
+<div class="row" style="display:none; background-color:lightpink; padding:1rem;" id="errorMgsSection">
+    <label id="errorMessage" class="text-dark"></label>
+</div>
+
 <div>
     @using (Html.BeginForm("UpdateProfile","Account")) { 
     <div class="row mt-3">
@@ -32,23 +36,67 @@
 
             </div>
         </div>
-        <div class="col-md-4 mt-5">
-            <ul>
-                <li>Rule one</li>
-                <li>Rule two</li>
-                <li>Rule three</li>
-                <li>Rule four</li>
-                <li>Rule five</li>
-            </ul>
-        </div>
-       
+        
     </div>
     <div class="form-group mt-2">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Update" class="btn btn-info" />
+            <input type="submit" value="Update" class="btn btn-info" id="updatePasswordBtn"/>
             <input type="reset" value="Clear" class="btn btn-secondary ml-2" />
         </div>
     </div>
     }
 </div>
 
+
+@section Scripts{
+    
+    <script>
+
+        $(document).ready(function () {
+
+            $("#newPassword").keyup(function () {
+                var oldPassword = $("#oldPassword").val();
+                var newPassword = $("#newPassword").val();
+                var conformPassword = $("#conformPassword").val();
+
+                if (oldPassword == newPassword) {
+                    $("#errorMgsSection").show();
+                    $("#errorMessage").html("New Password cannot same as old password.");
+                    $("#updatePasswordBtn").prop('disabled', true);
+                }
+                else if (conformPassword != "" && newPassword != conformPassword)
+                {
+                    $("#errorMgsSection").show();
+                    $("#errorMessage").html("New Password and conform password should match.");
+                    $("#updatePasswordBtn").prop('disabled', true);
+                }
+                else
+                {
+                    $("#errorMgsSection").hide();
+                    $("#updatePasswordBtn").prop('disabled', false);
+                }
+            });
+
+            $("#conformPassword").keyup(function () {
+                var newPassword = $("#newPassword").val();
+                var conformPassword = $("#conformPassword").val();
+
+                if (conformPassword != "" && newPassword != conformPassword)
+                {
+                    $("#errorMgsSection").show();
+                    $("#errorMessage").html("New Password and conform password should match.");
+                    $("#updatePasswordBtn").prop('disabled', true);
+                }
+                else
+                {
+                    $("#errorMgsSection").hide();
+                    $("#updatePasswordBtn").prop('disabled', false);
+                }
+            });
+        });
+
+    </script>
+    
+    
+    
+    }

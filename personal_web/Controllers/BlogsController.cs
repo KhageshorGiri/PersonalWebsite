@@ -43,12 +43,16 @@ namespace personal_web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult BlogCateogry(string Category)
+        public ActionResult BlogCateogry(BlogCategory blogCategory)
         {
-            BlogCategory category = new BlogCategory();
-            category.Category = Category;
-            blogRepository.CreateBlogCategory(category);
-            return RedirectToAction("BlogCateogry", "Blogs");
+            if (ModelState.IsValid)
+            {
+                blogRepository.CreateBlogCategory(blogCategory);
+                TempData["Sucess"] = "Blog Category is Created.";
+                return RedirectToAction("BlogCateogry", "Blogs");
+            }
+            TempData["Fail"] = "Unable to Crate Blog Category.";
+            return View();
         }
 
         // GET: Blogs/Details/5
@@ -190,6 +194,13 @@ namespace personal_web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteBlogCategory(int id)
+        {
+            blogRepository.DeleteBlogCategory(id);
+            return RedirectToAction("BlogCategory");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

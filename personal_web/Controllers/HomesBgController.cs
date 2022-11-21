@@ -78,14 +78,21 @@ namespace personal_web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "HomeID,FullName,TitleDescription,Introduction,Image,CalltoAction")] Home home)
+        public ActionResult Edit([Bind(Include = "HomeID,FullName,TitleDescription,Introduction,Image,CalltoAction")] Home home, HttpPostedFileBase NewBgImage)
         {
             if (ModelState.IsValid)
             {
+                if (NewBgImage != null)
+                {
+                    var filename = Path.GetFileName(NewBgImage.FileName);
+                    var path = Path.Combine(Server.MapPath("~/images"), filename);
+                    NewBgImage.SaveAs(path);
+                    home.Image = "/images/" + filename;
+                }
                 homeRepository.UpdateHomeBgData(home);
 
                 TempData["Sucess"] = "Data Edited Sucessfully.";
-                return RedirectToAction("Index");
+                return RedirectToAction("create");
             }
             TempData["Fail"] = "We are not able to edit your data.";
             return View(home);

@@ -81,16 +81,23 @@ namespace personal_web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AboutID,Image,Qutation,ShortDescription,Description")] About about)
+        public ActionResult Edit([Bind(Include = "AboutID,Image,Qutation,ShortDescription,Description")] About about, HttpPostedFileBase NewImage)
         {
             if (ModelState.IsValid)
             {
+                if(NewImage != null)
+                {
+                    var filename = Path.GetFileName(NewImage.FileName);
+                    var path = Path.Combine(Server.MapPath("~/images"), filename);
+                    NewImage.SaveAs(path);
+                    about.Image = "/images/" + filename;
+                }
                 aboutRepository.UpdateAbout(about);
                 TempData["Sucess"] = "About Data Edited Sucessfully.";
                 return RedirectToAction("Index");
             }
             TempData["Fail"] = "We are not able to edit about data.";
-            return View(about);
+            return RedirectToAction("Create");
         }
 
         // GET: Abouts/Delete/5

@@ -22,5 +22,7 @@ namespace personal_web.Iterfaces
         void UpdteBlog(Blog blog);
 
         void DeleteBlog(int Id);
+
+        void DeleteBlogCategory(int Id);
     }
 }
