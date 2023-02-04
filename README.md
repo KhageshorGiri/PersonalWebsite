@@ -1,7 +1,7 @@
 # PersonalWebsite
 #### A personal blog post and portfolio website.
 
-#### This Library management system id developed in
+#### This project is developed in
 -- asp.net mvc   
 -- used EntityFramework For communicating with database    
 -- used Microsoft SQL server management studio for SQL database   
